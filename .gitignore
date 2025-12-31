@@ -1,0 +1,13 @@
+# Secrets and Environment Variables
+.env
+*.env
+secrets/
+*.key
+*.pem
+*.json
+id_ed25519*
+
+# OS Files
+.DS_Store
+Thumbs.db
+Desktop.ini
