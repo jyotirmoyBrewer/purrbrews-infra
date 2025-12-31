@@ -1,0 +1,16 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    security_opt:
+      - no-new-privileges:true
+    volumes:
+      # The socket allows Portainer to control Docker
+      - /var/run/docker.sock:/var/run/docker.sock
+      # We persist data to your centralized storage for easy backup
+      - /media/storage/data/portainer:/data
+    ports:
+      - "9000:9000"
+    environment:
+      - TZ=Asia/Kolkata
