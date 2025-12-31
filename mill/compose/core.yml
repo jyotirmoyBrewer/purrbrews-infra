@@ -2,13 +2,20 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
-    network_mode: "host" # Critical for DHCP and proper Client ID visibility
+    network_mode: "host"
     environment:
       - TZ=Asia/Kolkata
-      - WEBPASSWORD=${PIHOLE_PASSWORD} # Change this initial password!
+      # --- V6 CRITICAL CHANGES ---
+      # Old: WEBPASSWORD -> New: FTLCONF_webserver_api_password
+      - FTLCONF_webserver_api_password=${PIHOLE_PASSWORD}
+      # Explicitly tell it to listen on all interfaces (since we use host mode)
+      - FTLCONF_dns_listeningMode=ALL
     volumes:
-      -  /media/storage/data/pihole/etc-pihole:/etc/pihole
-      -  /media/storage/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
+      - /media/storage/data/pihole/etc-pihole:/etc/pihole
+      # v6 handles config differently, but keeping this volume is safe for now
+      - /media/storage/data/pihole/etc-dnsmasq.d:/etc/dnsmasq.d
     cap_add:
-      - NET_ADMIN # Required for DHCP
+      - NET_ADMIN
+      - SYS_TIME
+      - SYS_NICE # Gives Pi-hole priority over other apps
     restart: unless-stopped
