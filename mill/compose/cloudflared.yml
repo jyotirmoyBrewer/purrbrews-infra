@@ -3,8 +3,15 @@ services:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
     restart: unless-stopped
-    command: tunnel run
-    environment:
-      - TUNNEL_TOKEN=${TUNNEL_TOKEN}
+    
+    # WE INJECT THE UUID HERE
+    command: tunnel run ${TUNNEL_UUID}
+    
+    volumes:
+      # Use the ENV variable to find the correct secret file
+      - /media/storage/secrets/${TUNNEL_UUID}.json:/etc/cloudflared/credentials.json:ro
+      
+      # Mount the generic config
+      - ../configs/tunnel.yaml:/etc/cloudflared/config.yml:ro
     networks:
       - default
