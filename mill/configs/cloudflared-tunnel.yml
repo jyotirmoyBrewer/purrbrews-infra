@@ -1,8 +1,18 @@
 credentials-file: /etc/cloudflared/credentials.json
 
 ingress:
+  # Service 1: Portainer (Barista)
   - hostname: portainer.purrbrews.cc
     service: http://192.168.0.10:9000
+  
+  # Service 2: Pi-hole (Mill)
   - hostname: pihole.purrbrews.cc
     service: http://192.168.0.11:80
+
+
+  # Service 3: Vaultwarden (Barista)
+  - hostname: vault.purrbrews.cc
+    service: http://192.168.0.10:8080
+
+  # Default rule: Catch-all to a 404 page
   - service: http_status:404
