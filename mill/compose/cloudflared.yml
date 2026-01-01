@@ -12,6 +12,6 @@ services:
       - /media/storage/secrets/${TUNNEL_UUID}.json:/etc/cloudflared/credentials.json:ro
       
       # Mount the generic config
-      - ../configs/tunnel.yaml:/etc/cloudflared/config.yml:ro
+      - ../configs/cloudflared-tunnel.yaml:/etc/cloudflared/config.yml:ro
     networks:
       - default
