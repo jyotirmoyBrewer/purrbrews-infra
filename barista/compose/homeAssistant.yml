@@ -6,6 +6,36 @@ services:
       - /media/storage/data/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
+    environment:
+      - TZ=Asia/Kolkata
     restart: unless-stopped
-    privileged: true 
+    privileged: true
     network_mode: host
+    depends_on:
+      - postgres
+      - mosquitto
+
+  postgres:
+    container_name: ha-postgres
+    image: postgres:15-alpine
+    volumes:
+      - /media/storage/data/homeassistant/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=homeassistant
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  mosquitto:
+    container_name: mosquitto
+    image: eclipse-mosquitto:2
+    volumes:
+      - /media/storage/data/homeassistant/mosquitto:/mosquitto/config
+      - /media/storage/data/homeassistant/mosquitto/data:/mosquitto/data
+      - /media/storage/data/homeassistant/mosquitto/log:/mosquitto/log
+    ports:
+      - "1883:1883"
+      - "9001:9001"
+    restart: unless-stopped
