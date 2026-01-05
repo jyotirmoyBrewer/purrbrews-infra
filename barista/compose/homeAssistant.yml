@@ -9,6 +9,9 @@ services:
     environment:
       - TZ=Asia/Kolkata
       - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@localhost:5432/homeassistant
+      - TUYA_ACCESS_ID=${TUYA_ACCESS_ID}
+      - TUYA_ACCESS_SECRET=${TUYA_ACCESS_SECRET}
+      - TUYA_COUNTRY_CODE=${TUYA_COUNTRY_CODE}
     restart: unless-stopped
     privileged: true
     network_mode: host

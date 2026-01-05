@@ -16,3 +16,8 @@ http:
 
 recorder:
   db_url: !env_var POSTGRES_URL
+
+tuya_smart_ir_ac:
+  access_id: !env_var TUYA_ACCESS_ID
+  access_secret: !env_var TUYA_ACCESS_SECRET
+  country: !env_var TUYA_COUNTRY_CODE
