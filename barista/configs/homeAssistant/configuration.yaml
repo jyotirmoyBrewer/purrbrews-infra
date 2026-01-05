@@ -15,4 +15,4 @@ http:
     - ::1
 
 recorder:
-  db_url: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/homeassistant
+  db_url: !env_var POSTGRES_URL
