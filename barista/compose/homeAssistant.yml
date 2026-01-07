@@ -19,7 +19,6 @@ services:
       - postgres
       - mosquitto
 
-    restart: unless-stopped
 
   mosquitto:
     container_name: mosquitto
