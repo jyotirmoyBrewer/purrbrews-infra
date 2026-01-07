@@ -16,7 +16,7 @@ services:
     privileged: true
     network_mode: host
     depends_on:
-      - postgres
+      - ha-postgres
       - mosquitto
 
 
