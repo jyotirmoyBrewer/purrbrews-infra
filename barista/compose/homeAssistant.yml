@@ -19,17 +19,6 @@ services:
       - postgres
       - mosquitto
 
-  postgres:
-    container_name: ha-postgres
-    image: postgres:15-alpine
-    volumes:
-      - /media/storage/data/homeassistant/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=homeassistant
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-    ports:
-      - "5432:5432"
     restart: unless-stopped
 
   mosquitto:
