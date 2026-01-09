@@ -14,6 +14,9 @@ services:
       - TUYA_COUNTRY_CODE=${TUYA_COUNTRY_CODE}
     restart: unless-stopped
     privileged: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
     network_mode: host
     depends_on:
       - mosquitto
