@@ -33,8 +33,7 @@ services:
       - "1883:1883"
       - "9001:9001"
     restart: unless-stopped
-  
-  services:
+
   whisper:
     image: rhasspy/wyoming-whisper
     container_name: wyoming-whisper
