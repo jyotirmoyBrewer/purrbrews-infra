@@ -7,7 +7,7 @@ services:
     devices:
       - /dev/snd:/dev/snd
     volumes:
-      - ./satellite-data:/data
+      - /media/storage/satellite-data:/data
     command:
       - --name
       - "mill-satellite"
