@@ -33,3 +33,31 @@ services:
       - "1883:1883"
       - "9001:9001"
     restart: unless-stopped
+  
+  services:
+  whisper:
+    image: rhasspy/wyoming-whisper
+    container_name: wyoming-whisper
+    restart: unless-stopped
+    ports:
+      - "10300:10300"
+    volumes:
+      - /media/storage/data/homeassistant/whisper-data:/data
+    command: [ "--model", "small-int8", "--language", "en" ]
+
+  piper:
+    image: rhasspy/wyoming-piper
+    container_name: wyoming-piper
+    restart: unless-stopped
+    ports:
+      - "10200:10200"
+    volumes:
+      - ./piper-data:/data
+    command: [ "--voice", "en_US-lessac-medium" ]
+
+  openwakeword:
+    image: rhasspy/wyoming-openwakeword
+    container_name: wyoming-openwakeword
+    restart: unless-stopped
+    ports:
+      - "10400:10400"

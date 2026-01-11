@@ -1,0 +1,23 @@
+services:
+  satellite:
+    image: rhasspy/wyoming-satellite
+    container_name: wyoming-satellite
+    restart: unless-stopped
+    network_mode: host
+    devices:
+      - /dev/snd:/dev/snd
+    volumes:
+      - ./satellite-data:/data
+    command:
+      - --name
+      - "mill-satellite"
+      - --uri
+      - "tcp://0.0.0.0:10700"
+      - --mic-command
+      - "arecord -r 16000 -c 1 -f S16_LE -t raw"
+      - --snd-command
+      - "aplay -r 22050 -c 1 -f S16_LE -t raw"
+      - --wake-uri
+      - "tcp://<IP_ADDRESS_OF_BARISTA>:10400"
+      - --wake-word-name
+      - "hey_jarvis"
